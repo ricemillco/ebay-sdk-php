@@ -43,6 +43,12 @@ class AspectConstraint extends \DTS\eBaySDK\Types\BaseType
             'attribute' => false,
             'elementName' => 'aspectFormat'
         ],
+        'aspectMaxLength' => [
+            'type' => 'integer',
+            'repeatable' => false,
+            'attribute' => false,
+            'elementName' => 'aspectMaxLength'
+        ],
         'aspectMode' => [
             'type' => 'string',
             'repeatable' => false,
@@ -54,6 +60,18 @@ class AspectConstraint extends \DTS\eBaySDK\Types\BaseType
             'repeatable' => false,
             'attribute' => false,
             'elementName' => 'aspectRequired'
+        ],
+        'aspectUsage' => [
+            'type' => 'string',
+            'repeatable' => false,
+            'attribute' => false,
+            'elementName' => 'aspectUsage'
+        ],
+        'expectedRequiredByDate' => [
+            'type' => 'string',
+            'repeatable' => false,
+            'attribute' => false,
+            'elementName' => 'expectedRequiredByDate'
         ],
         'itemToAspectCardinality' => [
             'type' => 'string',
