@@ -1,4 +1,5 @@
 <?php
+
 namespace DTS\eBaySDK\Trading\Services;
 
 use DTS\eBaySDK\Trading\Types;
@@ -140,16 +141,18 @@ class TradingBaseService extends \DTS\eBaySDK\Services\BaseService
         $headers[self::HDR_SITE_ID] = $this->getConfig('siteId');
 
         // Add optional headers.
-        if ($appId) {
-            $headers[self::HDR_APP_ID] = $appId;
-        }
+        if (in_array($operationName, [
+            'FetchToken',
+            'GetTokenStatus',
+            'ConfirmIdentity',
+            'GetSessionID',
+            'RevokeToken',
+        ])) {
+            $appId && $headers[self::HDR_APP_ID] = $appId;
 
-        if ($certId) {
-            $headers[self::HDR_CERT_ID] = $certId;
-        }
+            $certId && $headers[self::HDR_CERT_ID] = $certId;
 
-        if ($devId) {
-            $headers[self::HDR_DEV_ID] = $devId;
+            $devId && $headers[self::HDR_DEV_ID] = $devId;
         }
 
         if ($this->getConfig('authorization')) {
@@ -176,7 +179,7 @@ class TradingBaseService extends \DTS\eBaySDK\Services\BaseService
     protected function buildRequestBody(\DTS\eBaySDK\Types\BaseType $request)
     {
         if ($request->hasAttachment() && $request instanceof Types\UploadSiteHostedPicturesRequestType) {
-            return $this->buildMultipartFormDataXMLPayload($request).$this->buildMultipartFormDataFilePayload($request->PictureName, $request->attachment());
+            return $this->buildMultipartFormDataXMLPayload($request) . $this->buildMultipartFormDataFilePayload($request->PictureName, $request->attachment());
         } else {
             return parent::buildRequestBody($request);
         }
