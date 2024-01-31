@@ -13,7 +13,7 @@ namespace DTS\eBaySDK\Trading\Services;
 
 class TradingService extends \DTS\eBaySDK\Trading\Services\TradingBaseService
 {
-    const API_VERSION = '1149';
+    const API_VERSION = '1325';
 
     /**
      * @param array $config Configuration option values.
