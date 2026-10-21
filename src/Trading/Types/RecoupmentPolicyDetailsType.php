@@ -59,7 +59,7 @@ class RecoupmentPolicyDetailsType extends \DTS\eBaySDK\Types\BaseType
         parent::__construct($parentValues);
 
         if (!array_key_exists(__CLASS__, self::$properties)) {
-            self::$properties[__CLASS__] = array_merge(self::$properties[get_parent_class()], self::$propertyTypes);
+            self::$properties[__CLASS__] = array_merge(self::$properties[get_parent_class(__CLASS__)], self::$propertyTypes);
         }
 
         if (!array_key_exists(__CLASS__, self::$xmlNamespaces)) {

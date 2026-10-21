@@ -78,7 +78,7 @@ class Parser
     /**
      * @param Lexer $lexer Lexer used to tokenize expressions
      */
-    public function __construct(Lexer $lexer = null)
+    public function __construct(?Lexer $lexer = null)
     {
         $this->lexer = $lexer ?: new Lexer();
     }
@@ -386,7 +386,7 @@ class Parser
         ];
     }
 
-    private function parseWildcardObject(array $left = null)
+    private function parseWildcardObject(?array $left = null)
     {
         $this->next();
 
@@ -400,7 +400,7 @@ class Parser
         ];
     }
 
-    private function parseWildcardArray(array $left = null)
+    private function parseWildcardArray(?array $left = null)
     {
         static $getRbracket = [T::T_RBRACKET => true];
         $this->next($getRbracket);
@@ -493,7 +493,7 @@ class Parser
             : $this->tokens[$this->tpos + 1]['type'];
     }
 
-    private function next(array $match = null)
+    private function next(?array $match = null)
     {
         if (!isset($this->tokens[$this->tpos + 1])) {
             $this->token = self::$nullToken;

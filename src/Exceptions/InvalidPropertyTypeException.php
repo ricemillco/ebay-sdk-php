@@ -13,7 +13,7 @@ class InvalidPropertyTypeException extends \LogicException
      * @param int $code|0
      * @param \Exception
      */
-    public function __construct($property, $expectedType, $actualType, $code = 0, \Exception $previous = null)
+    public function __construct($property, $expectedType, $actualType, $code = 0, ?\Exception $previous = null)
     {
         parent::__construct("Invalid property type provided for $property. Expected $expectedType but got $actualType", $code, $previous);
     }

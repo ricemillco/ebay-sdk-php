@@ -32,7 +32,7 @@ class HttpHandler
     /**
      * @param \GuzzleHttp\ClientInterface $client The client for making the HTTP request.
      */
-    public function __construct(ClientInterface $client = null)
+    public function __construct(?ClientInterface $client = null)
     {
         $this->client = $client ?: new Client();
     }
