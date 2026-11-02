@@ -3,6 +3,7 @@ namespace DTS\eBaySDK\OAuth\Services;
 
 use DTS\eBaySDK\ConfigurationResolver;
 use DTS\eBaySDK\Credentials\CredentialsProvider;
+use DTS\eBaySDK\Parser\JsonParser;
 use DTS\eBaySDK\UriResolver;
 use \DTS\eBaySDK as Functions;
 use GuzzleHttp\Psr7\Request;
@@ -327,7 +328,7 @@ class OAuthService
                 }
 
                 return new $responseClass(
-                    $json !== '' ? json_decode($json, true) : [],
+                    JsonParser::decode($json),
                     $res->getStatusCode(),
                     $res->getHeaders()
                 );

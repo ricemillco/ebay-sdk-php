@@ -8,7 +8,7 @@ This is a personal project that has been developed by me, [David T. Sadler](http
 
 ## Features
 
-  - Compatible with PHP 5.5 or greater.
+  - Compatible with PHP 8.0 or greater.
   - Easy to install with [Composer](http://getcomposer.org/).
   - Compliant with [PSR-1](http://www.php-fig.org/psr/psr-1/), [PSR-2](http://www.php-fig.org/psr/psr-2/) and [PSR-4](http://www.php-fig.org/psr/psr-4/).
 
@@ -19,7 +19,7 @@ This is a personal project that has been developed by me, [David T. Sadler](http
  
 ## Requirements
 
-  - PHP 5.5 or greater with the following extensions:
+  - PHP 8.0 or greater with the following extensions:
       - cURL
       - libxml
   - 64 bit version of PHP recommended as there are some [issues when using the SDK with 32 bit](http://devbay.net/sdk/guides/getting-started/requirements.html#using-the-sdk-with-32-bit-systems).
