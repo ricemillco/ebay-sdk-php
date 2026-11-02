@@ -16,7 +16,7 @@ use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\RequestInterface;
 
-class Php84CompatibilityTest extends \PHPUnit_Framework_TestCase
+class Php84CompatibilityTest extends \PHPUnit\Framework\TestCase
 {
     public function testHttpHandlerAcceptsDefaultAndNullClients(): void
     {

@@ -9,7 +9,7 @@ use DTS\eBaySDK\Test\Mocks\Service;
 use DTS\eBaySDK\Test\Mocks\ComplexClass;
 use DTS\eBaySDK\Test\Mocks\HttpHandler;
 
-class ServiceTest extends \PHPUnit_Framework_TestCase
+class ServiceTest extends \PHPUnit\Framework\TestCase
 {
     use ManageEnv;
 
@@ -131,10 +131,10 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
         $r = new ComplexClass();
         $s->foo($r);
 
-        $this->assertContains('fooHdr: foo', $str);
-        $this->assertContains('Content-Type: text/xml', $str);
-        $this->assertContains('Content-Length: '.strlen($r->toRequestXml()), $str);
-        $this->assertContains('<?xml version="1.0" encoding="UTF-8"?>', $str);
+        $this->assertStringContainsString('fooHdr: foo', $str);
+        $this->assertStringContainsString('Content-Type: text/xml', $str);
+        $this->assertStringContainsString('Content-Length: '.strlen($r->toRequestXml()), $str);
+        $this->assertStringContainsString('<?xml version="1.0" encoding="UTF-8"?>', $str);
     }
 
     public function testCredentialsInstanceCanBePassed()
@@ -208,12 +208,11 @@ EOT;
         unlink($dir . '/credentials');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage No credentials present in INI profile
-     */
     public function testCredentialsIniWillThrowException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('No credentials present in INI profile');
+
         $ini = <<<EOT
 [foo]
 EOT;
@@ -235,12 +234,11 @@ EOT;
         }
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Cannot locate credentials
-     */
     public function testCredentialsProviderThrowsIfCantProvide()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Cannot locate credentials');
+
         new Service([
             'credentials' => function () {
                 return new \InvalidArgumentException('Cannot locate credentials');
@@ -291,12 +289,11 @@ EOT;
         ], $s->getConfig());
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid configuration value provided for "sandbox". Expected bool, but got int(-1)
-     */
     public function testSetConfigWillThrow()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid configuration value provided for "sandbox". Expected bool, but got int(-1)');
+
         $s = new Service([
             'x'=> 1,
             'credentials' => [

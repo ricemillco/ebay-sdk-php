@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.1/phpunit.xsd"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.6/phpunit.xsd"
+    convertDeprecationsToExceptions="true"
     colors="true">
+    <php>
+        <!-- CI images may ship a php.ini that silences deprecations, which would hide them from PHPUnit. -->
+        <ini name="error_reporting" value="-1"/>
+    </php>
     <testsuites>
         <testsuite name="sdk">
             <directory>test</directory>
