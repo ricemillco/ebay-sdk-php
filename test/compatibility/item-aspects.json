@@ -1,0 +1,26 @@
+{
+  "aspects": [
+    {
+      "localizedAspectName": "Brand",
+      "aspectConstraint": {
+        "aspectDataType": "STRING",
+        "aspectMode": "SELECTION_ONLY",
+        "aspectRequired": true,
+        "itemToAspectCardinality": "SINGLE"
+      },
+      "aspectValues": [
+        {
+          "localizedValue": "Acme",
+          "valueConstraints": [
+            {
+              "applicableForLocalizedAspectName": "Model",
+              "applicableForLocalizedAspectValues": ["Example"]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "warnings": [{"errorId": 123, "message": "Example warning"}]
+}

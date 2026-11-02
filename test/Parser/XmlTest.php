@@ -5,6 +5,17 @@ use DTS\eBaySDK\Parser\XmlParser;
 
 class XmlTest extends \PHPUnit_Framework_TestCase
 {
+    public function testCanParseUnknownXmlElementsWithoutLosingKnownValues(): void
+    {
+        $xmlParser = new XmlParser('\\DTS\\eBaySDK\\Test\\Mocks\\ComplexClass');
+        $obj = $xmlParser->parse('<root><unknown><nested>ignored</nested></unknown><integer>42</integer><string>Fish &amp; Chips</string><strings>first</strings><strings>second</strings></root>');
+
+        $this->assertSame(42, $obj->integer);
+        $this->assertSame('Fish & Chips', $obj->string);
+        $this->assertSame('first', $obj->strings[0]);
+        $this->assertSame('second', $obj->strings[1]);
+    }
+
     public function testCanParseXml()
     {
         $xmlParser = new XmlParser('\DTS\eBaySDK\Test\Mocks\ComplexClass');

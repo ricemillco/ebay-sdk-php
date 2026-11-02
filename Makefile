@@ -11,8 +11,16 @@ phpcs:
 phpcbf:
 	@vendor/bin/phpcbf $(DIR) --extensions=php --standard=PSR2 -n
 
-test:
+test: test-compatibility
 	@vendor/bin/phpunit $(TEST)
+
+# These runners treat deprecations as failures. They need no Composer dependencies,
+# but runtime.php also checks the HTTP paths when vendor/autoload.php is present.
+.PHONY: test-compatibility
+test-compatibility:
+	@php test/compatibility/get-parent-class.php
+	@php test/compatibility/json-parser.php
+	@php test/compatibility/runtime.php
 
 clean:
 	rm -rf build/artifacts

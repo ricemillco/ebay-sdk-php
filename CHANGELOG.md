@@ -1,5 +1,39 @@
 # CHANGELOG
 
+## 19.0.0 - Unreleased
+
+### Breaking changes
+
+* Require PHP 8.0 in `composer.json`, replacing `>=5.5`. The SDK's `mixed` return
+  types already prevent it from working reliably on earlier versions. Guzzle
+  constraints do not change.
+* Handle empty, whitespace-only and JSON null responses in REST and OAuth services
+  as empty responses instead of raising a type error. These responses no longer
+  throw even with an error status, so check `getStatusCode()`.
+* Report malformed JSON and unexpected scalar payloads in REST and OAuth services
+  with an `UnexpectedValueException` instead of a `TypeError`. Code catching
+  `\TypeError` for these responses must catch the new exception.
+
+### Features
+
+* Add `JsonParser::decode()`, which OAuth uses to share the REST decoding.
+
+### Fixes
+
+* Pass the lexical class name to `get_parent_class()` in SDK type constructors
+  and test fixtures, fixing the PHP 8.3 deprecation while preserving inherited
+  property metadata.
+* Make implicitly nullable parameters explicit and register XML handlers as method
+  callables, fixing the PHP 8.4 deprecations. Pass empty strings as the
+  `http_build_query()` prefix, fixing the PHP 8.1 deprecation. Parsed results do
+  not change.
+* Add compatibility regression runners that fail on warnings and deprecations.
+  They check inherited metadata, construct every affected SDK type, parse a
+  Taxonomy item-aspects response, and cover XML parsing, JMESPath and the OAuth and
+  REST HTTP paths. Run them on PHP 8.0, 8.3 and 8.4 in GitHub Actions.
+
+See [release notes and Atlantis upgrade instructions](docs/releases/19.0.0.md).
+
 ## 18.0.0 - 2018-06-28
 
 ### Features

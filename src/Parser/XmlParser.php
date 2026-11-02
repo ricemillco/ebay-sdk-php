@@ -44,9 +44,8 @@ class XmlParser
 
         xml_parser_set_option($parser, XML_OPTION_CASE_FOLDING, 0);
         xml_parser_set_option($parser, XML_OPTION_SKIP_WHITE, 1);
-        xml_set_object($parser, $this);
-        xml_set_element_handler($parser, 'startElement', 'endElement');
-        xml_set_character_data_handler($parser, 'cdata');
+        xml_set_element_handler($parser, [$this, 'startElement'], [$this, 'endElement']);
+        xml_set_character_data_handler($parser, [$this, 'cdata']);
 
         xml_parse($parser, $xml, true);
 
