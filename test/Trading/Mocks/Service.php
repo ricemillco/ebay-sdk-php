@@ -18,4 +18,13 @@ class Service extends \DTS\eBaySDK\Trading\Services\TradingBaseService
             '\DTS\eBaySDK\Test\Mocks\ComplexClass'
         )->wait();
     }
+
+    public function namedOperation($name)
+    {
+        return $this->callOperationAsync(
+            $name,
+            new GeteBayOfficialTimeRequestType(),
+            '\DTS\eBaySDK\Test\Mocks\ComplexClass'
+        )->wait();
+    }
 }

@@ -66,7 +66,21 @@ class ServiceTest extends \PHPUnit\Framework\TestCase
         $this->assertArrayNotHasKey(TradingBaseService::HDR_AUTHORIZATION, $h->headers);
     }
 
-    public function testOptionalEbayHeaders()
+    public function tokenOperations()
+    {
+        return [
+            ['ConfirmIdentity'],
+            ['FetchToken'],
+            ['GetSessionID'],
+            ['GetTokenStatus'],
+            ['RevokeToken']
+        ];
+    }
+
+    /**
+     * @dataProvider tokenOperations
+     */
+    public function testOptionalEbayHeaders($operation)
     {
         $h = new HttpHandler();
 
@@ -77,7 +91,7 @@ class ServiceTest extends \PHPUnit\Framework\TestCase
             'httpHandler' => $h
         ]);
 
-        $s->testOperation();
+        $s->namedOperation($operation);
 
         $this->assertArrayHasKey(TradingBaseService::HDR_API_VERSION, $h->headers);
         $this->assertEquals(TradingService::API_VERSION, $h->headers[TradingBaseService::HDR_API_VERSION]);
@@ -94,5 +108,26 @@ class ServiceTest extends \PHPUnit\Framework\TestCase
         $this->assertArrayHasKey(TradingBaseService::HDR_AUTHORIZATION, $h->headers);
         $this->assertEquals('foo', $h->headers[TradingBaseService::HDR_AUTHORIZATION]);
 
+    }
+
+    public function testCredentialHeadersAreOnlySentForTokenOperations()
+    {
+        $h = new HttpHandler();
+
+        $s = new Service([
+            'authorization' => 'foo',
+            'credentials' => ['appId' => 'appId', 'certId' => 'certId', 'devId' => 'devId'],
+            'siteId' => 999,
+            'httpHandler' => $h
+        ]);
+
+        $s->testOperation();
+
+        $this->assertArrayNotHasKey(TradingBaseService::HDR_APP_ID, $h->headers);
+        $this->assertArrayNotHasKey(TradingBaseService::HDR_CERT_ID, $h->headers);
+        $this->assertArrayNotHasKey(TradingBaseService::HDR_DEV_ID, $h->headers);
+
+        $this->assertArrayHasKey(TradingBaseService::HDR_AUTHORIZATION, $h->headers);
+        $this->assertEquals('foo', $h->headers[TradingBaseService::HDR_AUTHORIZATION]);
     }
 }
