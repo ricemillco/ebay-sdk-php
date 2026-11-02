@@ -10,6 +10,17 @@ class JsonParser
      */
     public static function parseAndAssignProperties($object, $json)
     {
+        self::assignProperties($object, self::decode($json));
+    }
+
+    /**
+     * @param string|null $json The JSON string to decode, or null for an empty response.
+     *
+     * @return array The decoded properties. Empty for an empty or JSON null response.
+     * @throws \UnexpectedValueException If the response is malformed JSON or a non-null scalar.
+     */
+    public static function decode($json)
+    {
         if ($json === null || (is_string($json) && trim($json) === '')) {
             $properties = [];
         } else {
@@ -29,7 +40,7 @@ class JsonParser
             throw new \UnexpectedValueException('Expected a JSON object or array in the response.');
         }
 
-        self::assignProperties($object, $properties);
+        return $properties;
     }
 
     private static function assignProperties(\DTS\eBaySDK\Types\BaseType $object, array $properties)

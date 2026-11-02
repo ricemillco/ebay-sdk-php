@@ -7,7 +7,7 @@ There are a few minimum system requirements to start using the SDK. Many of thes
 Minimum requirements
 --------------------
 
-* PHP 5.5.0 or greater with the following extensions:
+* PHP 8.0.0 or greater with the following extensions:
 
   * cURL
   * libxml
