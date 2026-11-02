@@ -18,7 +18,5 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           coverage: none
-      # Composer blocks the declared dev tools over security advisories, even with --no-dev.
-      - run: composer remove --dev --no-update phpunit/phpunit squizlabs/php_codesniffer
-      - run: composer update --no-dev --no-interaction --no-progress
-      - run: make test-compatibility
+      - run: composer update --no-interaction --no-progress
+      - run: make test

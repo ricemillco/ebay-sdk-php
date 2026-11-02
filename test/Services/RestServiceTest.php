@@ -6,7 +6,7 @@ use DTS\eBaySDK\Test\Mocks\RestService;
 use DTS\eBaySDK\Test\Mocks\ComplexClass;
 use DTS\eBaySDK\Test\Mocks\HttpRestHandler;
 
-class RestServiceTest extends \PHPUnit_Framework_TestCase
+class RestServiceTest extends \PHPUnit\Framework\TestCase
 {
     public function testConfigDefinitions()
     {
@@ -150,10 +150,10 @@ class RestServiceTest extends \PHPUnit_Framework_TestCase
         $r->foo = 'foo';
         $s->foo($r);
 
-        $this->assertContains('Content-Type: application/json', $str);
-        $this->assertContains('Content-Length: '.strlen(json_encode($r->toArray())), $str);
-        $this->assertContains('{', $str);
-        $this->assertContains('}', $str);
+        $this->assertStringContainsString('Content-Type: application/json', $str);
+        $this->assertStringContainsString('Content-Length: '.strlen(json_encode($r->toArray())), $str);
+        $this->assertStringContainsString('{', $str);
+        $this->assertStringContainsString('}', $str);
     }
 
     public function testCanSetConfigurationOptionsAfterInstaniation()
@@ -190,12 +190,11 @@ class RestServiceTest extends \PHPUnit_Framework_TestCase
         ], $s->getConfig());
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid configuration value provided for "sandbox". Expected bool, but got int(-1)
-     */
     public function testSetConfigWillThrow()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid configuration value provided for "sandbox". Expected bool, but got int(-1)');
+
         $s = new RestService([
             'x'=> 1
         ]);

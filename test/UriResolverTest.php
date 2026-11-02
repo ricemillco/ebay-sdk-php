@@ -4,7 +4,7 @@ namespace DTS\eBaySDK\Test;
 use DTS\eBaySDK\UriResolver;
 use DTS\eBaySDK\Test\Mocks\StaticMethods;
 
-class UriResolverTest extends \PHPUnit_Framework_TestCase
+class UriResolverTest extends \PHPUnit\Framework\TestCase
 {
     public function testDefaults()
     {
@@ -41,12 +41,11 @@ class UriResolverTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Missing required uri parameters
-     */
     public function testRequired()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Missing required uri parameters');
+
         $r = new UriResolver();
 
         $paramDefs = [
@@ -61,12 +60,11 @@ class UriResolverTest extends \PHPUnit_Framework_TestCase
         $r->resolve('https://example.com', 'v1', 'item', $paramDefs, $paramValues);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid uri parameter value provided for "foo". Expected array, but got int(-1)
-     */
     public function testValidatesArray()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid uri parameter value provided for "foo". Expected array, but got int(-1)');
+
         $r = new UriResolver();
 
         $paramDefs = [
@@ -82,12 +80,11 @@ class UriResolverTest extends \PHPUnit_Framework_TestCase
         $r->resolve('https://example.com', 'v1', 'item', $paramDefs, $paramValues);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid uri parameter value provided for "foo". Expected bool, but got int(-1)
-     */
     public function testValidatesBool()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid uri parameter value provided for "foo". Expected bool, but got int(-1)');
+
         $r = new UriResolver();
 
         $paramDefs = [
@@ -103,12 +100,11 @@ class UriResolverTest extends \PHPUnit_Framework_TestCase
         $r->resolve('https://example.com', 'v1', 'item', $paramDefs, $paramValues);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid uri parameter value provided for "foo". Expected callable, but got int(-1)
-     */
     public function testValidatesCallable()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid uri parameter value provided for "foo". Expected callable, but got int(-1)');
+
         $r = new UriResolver();
 
         $paramDefs = [
@@ -124,12 +120,11 @@ class UriResolverTest extends \PHPUnit_Framework_TestCase
         $r->resolve('https://example.com', 'v1', 'item', $paramDefs, $paramValues);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid uri parameter value provided for "foo". Expected int, but got string(3)
-     */
     public function testValidatesInt()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid uri parameter value provided for "foo". Expected int, but got string(3)');
+
         $r = new UriResolver();
 
         $paramDefs = [
@@ -145,12 +140,11 @@ class UriResolverTest extends \PHPUnit_Framework_TestCase
         $r->resolve('https://example.com', 'v1', 'item', $paramDefs, $paramValues);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid uri parameter value provided for "foo". Expected string, but got int(-1)
-     */
     public function testValidatesStrings()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid uri parameter value provided for "foo". Expected string, but got int(-1)');
+
         $r = new UriResolver();
 
         $paramDefs = [
@@ -256,12 +250,11 @@ class UriResolverTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Unknown uri parameter "bar" provided
-     */
     public function testParamMustExist()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Unknown uri parameter "bar" provided');
+
         $r = new UriResolver();
 
         $paramDefs = [

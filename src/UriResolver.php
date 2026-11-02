@@ -155,7 +155,7 @@ class UriResolver
             } elseif (is_callable($value)) {
                 $value = $value();
             }
-            $query[] = $param.'='.urlencode($value);
+            $query[] = $param.'='.urlencode((string) $value);
         }
         return '?'.join('&', $query);
     }
