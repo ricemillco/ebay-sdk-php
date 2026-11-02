@@ -5,3 +5,4 @@ build/artifacts
 docs/_build
 phpcs.phar
 php-cs-fixer.phar
+.idea/*
