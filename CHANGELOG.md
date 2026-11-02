@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 19.0.0 - Unreleased
+## 19.0.0 - 2026-11-02
 
 ### Breaking changes
 
