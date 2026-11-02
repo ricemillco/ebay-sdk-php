@@ -11,8 +11,14 @@ phpcs:
 phpcbf:
 	@vendor/bin/phpcbf $(DIR) --extensions=php --standard=PSR2 -n
 
-test:
+test: test-compatibility
 	@vendor/bin/phpunit $(TEST)
+
+# These runners need no Composer dependencies and treat deprecations as failures.
+.PHONY: test-compatibility
+test-compatibility:
+	@php test/compatibility/get-parent-class.php
+	@php test/compatibility/json-parser.php
 
 clean:
 	rm -rf build/artifacts

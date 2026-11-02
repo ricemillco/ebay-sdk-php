@@ -5,11 +5,30 @@ class JsonParser
 {
     /**
      * @param mixed A PHP object derived from DTS\eBaySDK\Types\BaseType
-     * @param string $json The JSON string to parse.
+     * @param string|null $json The JSON string to parse, or null for an empty response.
+     * @throws \UnexpectedValueException If the response is malformed JSON or a non-null scalar.
      */
     public static function parseAndAssignProperties($object, $json)
     {
-        $properties = $json !== '' ? json_decode($json, true) : [];
+        if ($json === null || (is_string($json) && trim($json) === '')) {
+            $properties = [];
+        } else {
+            $properties = json_decode($json, true);
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                throw new \UnexpectedValueException(
+                    'Unable to parse JSON response: '.json_last_error_msg(),
+                    json_last_error()
+                );
+            }
+            if ($properties === null) {
+                $properties = [];
+            }
+        }
+
+        if (!is_array($properties)) {
+            throw new \UnexpectedValueException('Expected a JSON object or array in the response.');
+        }
+
         self::assignProperties($object, $properties);
     }
 

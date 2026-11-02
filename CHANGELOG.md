@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## 18.0.9 - Unreleased
+
+### Fixes
+
+* Handle empty, whitespace-only and JSON null responses without passing null to
+  the JSON property parser. Report malformed JSON and unexpected scalar payloads
+  with an `UnexpectedValueException` instead of an array argument type error.
+* Pass the lexical class name to `get_parent_class()` in SDK type constructors
+  and test fixtures, fixing the PHP 8.3 deprecation while preserving inherited
+  property metadata. No dependency constraints or public APIs change.
+* Add a dependency-free compatibility regression runner that fails on warnings
+  and deprecations, checks inherited metadata, constructs every affected SDK type,
+  and parses a Taxonomy item-aspects response.
+
+See [patch-release notes and Atlantis upgrade instructions](docs/releases/18.0.9.md).
+
 ## 18.0.0 - 2018-06-28
 
 ### Features
